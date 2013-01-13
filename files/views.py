@@ -12,8 +12,16 @@ from django.contrib.auth.models import User
 import datetime
 import time
 from django.utils import timezone
+from files.forms import UploadFileForm
+from files.models import Car
 
 def home(request):
+    if request.method=="POST":
+        photo = request.FILES['file']
+        car = Car(name="aaa", price=12, photo=photo)
+        car.save()
+    else:
+        form = UploadFileForm()
     return render_to_response('files/home.html',
         locals(),
         context_instance=RequestContext(request)

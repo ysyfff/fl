@@ -2,8 +2,11 @@
 <head>
 </head>
 <body>
-    <form action="" method="">
-        <input type=""/>
+    <form action="/files/home/" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" name = "file">        
+        <input type="submit" value="submit">
     </form>
+    <img src="{{STATIC_URL}}img/headimg/1.jpg"/>
 </body>
 </html>
