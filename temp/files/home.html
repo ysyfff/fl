@@ -7,6 +7,13 @@
         <input type="file" name = "file">        
         <input type="submit" value="submit">
     </form>
-    <img src="{{STATIC_URL}}img/headimg/1.jpg"/>
+    <img src="{{STATIC_URL}}img/headimg/liuyan.jpg"/>
+    <br/>
+    {% for c in car_content %}
+        <img src="{{c.c_url}}"/>
+        <br/>
+        {{c.c_name}}
+        <br/>
+    {% endfor %}
 </body>
 </html>
