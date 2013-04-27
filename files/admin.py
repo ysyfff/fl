@@ -3,7 +3,7 @@ from files.models import Car, BackCar
 from datetime import datetime
 
 
-# class MyModelAdmin(admin.MyModelAdmin):
+# class MyModelAdmin(admin.ModelAdmin):
 #     def get_urls(self):
 #         urls = super(MyModelAdmin, self).get_urls()
 #         my_urls = patterns('',
@@ -30,5 +30,13 @@ from datetime import datetime
 #             )
 
 
+class MyModelAdmin(admin.ModelAdmin):
+    def save_model(self, request, obj, form, change):
+        obj.picture = request.FILES['picture']
+        p_name, format = obj.picture.name.split('.')
+        file_name = datetime.now().strftime('%Y%m%d%H%M%S')
+        obj.picture.name=file_name+'.'+format
+        obj.save()
+
 admin.site.register(Car)
-admin.site.register(BackCar)
+admin.site.register(BackCar, MyModelAdmin)
