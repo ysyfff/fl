@@ -122,10 +122,10 @@ def export_xls(request):
     agent=request.META.get('HTTP_USER_AGENT') 
     print agent
     if agent and re.search('MSIE',agent):
-        response =HttpResponse(mimetype="application/vnd.ms-excel") 
+        response =HttpResponse(content_type="application/vnd.ms-excel") 
         response['Content-Disposition'] ='attachment; filename=%s' % urlquote(fname)
     else:
-        response =HttpResponse(mimetype="application/ms-excel")#解决ie不能下载的问题
+        response =HttpResponse(content_type="application/ms-excel")#解决ie不能下载的问题
         response['Content-Disposition'] ='attachment; filename=%s' % smart_str(fname)
     wb.save(response)#this is the key
     return response
