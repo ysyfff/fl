@@ -2,21 +2,8 @@
 <head>
 </head>
 <body>
-    <form action="/files/home/" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        <input type="file" name = "file">        
-        <input type="submit" value="submit">
-    </form>
-    <img src="{{STATIC_URL}}img/headimg/liuyan.jpg"/>
-    <a href="/files/pdf" target="view_window">hello world</a>
-    <a href="/files/csv" target="view_window">CSV</a>
-    <a href="/files/xls" target="view_window">XLS</a>
-    <br/>
-    {% for c in car_content %}
-        <img src="{{c.c_url}}"/>
-        <br/>
-        {{c.c_name}}
-        <br/>
-    {% endfor %}
+    
+    <a href="/files/import" target="view_window">import</a><br/>
+    <a href="/files/export" target="view_window">export</a>
 </body>
 </html>

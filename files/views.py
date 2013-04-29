@@ -21,6 +21,8 @@ from django.contrib.auth import authenticate
 from django.contrib.auth import login
 from django.contrib.auth import logout
 from django.contrib.auth.models import User
+from django.http import HttpResponseRedirect
+from django.core.urlresolvers import reverse
 import datetime
 import time
 from django.utils import timezone
@@ -31,13 +33,27 @@ from files.models import Car
 ROOT_PATH = '/static/img/headimg/'
 
 def home(request):
+    return render_to_response('files/home.html',
+        locals(),
+        context_instance=RequestContext(request)
+        )
+
+def export_fl(request):
+    return render_to_response('files/export.html',
+        locals(),
+        context_instance=RequestContext(request)
+        )
+
+def import_img(request):
     file_name = datetime.now().strftime('%Y%m%d%H%M%S')
     if request.method=="POST":
+        return HttpResponseRedirect('/')
         photo = request.FILES['file']
         p_name, format = photo.name.split('.')
         photo.name=file_name+'.'+format
         car = Car(name=photo.name, photo=photo)
         car.save()
+        
     else:
         form = UploadFileForm()
 
@@ -48,7 +64,7 @@ def home(request):
             'c_name': c.name,
             'c_url': ROOT_PATH+c.name,
         })
-    return render_to_response('files/home.html',
+    return render_to_response('files/import.html',
         locals(),
         context_instance=RequestContext(request)
         )
