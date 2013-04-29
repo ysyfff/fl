@@ -18,4 +18,5 @@ urlpatterns = patterns('',
     url(r'^pdf/$', views.export_pdf),
     url(r'^csv/$', views.export_csv),
     url(r'^xls/$', views.export_xls),
+    url(r'^read/$', views.read_xls),
 )

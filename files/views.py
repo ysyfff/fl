@@ -8,6 +8,7 @@ import re
 from django.utils.encoding import smart_str
 from django.http import HttpResponse
 import xlwt
+from xlrd import *
 
 from django.template import Context
 from django.template import loader
@@ -53,19 +54,14 @@ def home(request):
 
 
 def export_pdf(request):
-    # Create the HttpResponse object with the appropriate PDF headers.
     response = HttpResponse(content_type='application/pdf')
     response['Content-Disposition'] = 'attachment; "filename="hello.pdf"'
 
     buffer = BytesIO()
-    # Create the PDF object, using the response object as its "file."
     p = canvas.Canvas(response)
 
-    # Draw things on the PDF. Here's where the PDF generation happens.
-    # See the ReportLab documentation for the full list of functionality.
     p.drawString(9*cm, 22*cm, "Hello World.nimei")
 
-    # Close the PDF object cleanly, and we're done.
     p.showPage()
     p.save()
     pdf = buffer.getvalue()
@@ -101,18 +97,35 @@ def export_xls(request):
     wb = xlwt.Workbook()
     ws = wb.add_sheet('A Test Sheet')
 
-    ws.write(0, 0, 'Test', style0)
-    ws.write(1, 0, datetime.now(), style1)
+    ws.write(0, 1, 'Test', style0)
+    ws.write(1, 1, datetime.now(), style1)
     ws.write(2, 0, 1)
     ws.write(2, 1, 1)
     ws.write(2, 2, xlwt.Formula("A3+B3"))
     fname = 'ex.xls'
     agent=request.META.get('HTTP_USER_AGENT') 
+    print agent
     if agent and re.search('MSIE',agent):
-        response =HttpResponse(mimetype="application/vnd.ms-excel") #解决ie不能下载的问题
-        response['Content-Disposition'] ='attachment; filename=%s' % urlquote(fname) #解决文件名乱码/不显示的问题
+        response =HttpResponse(mimetype="application/vnd.ms-excel") 
+        response['Content-Disposition'] ='attachment; filename=%s' % urlquote(fname)
     else:
         response =HttpResponse(mimetype="application/ms-excel")#解决ie不能下载的问题
-        response['Content-Disposition'] ='attachment; filename=%s' % smart_str(fname) #解决文件名乱码/不显示的问题
+        response['Content-Disposition'] ='attachment; filename=%s' % smart_str(fname)
     wb.save(response)#this is the key
     return response
+
+def read_xls(request):
+    xls_path = '/static/xls/'
+    wb = open_workbook('example.xls')
+    for s in wb.sheets():
+        print 'Sheet:', s.name
+        for row in xrange(s.nrows):
+            content = []
+            for col in xrange(s.ncols):
+                content.append(s.cell(row, col).value)
+            print ','.join(content)
+        print
+    return render_to_response('files/read.html',
+        locals(),
+        context_instance=RequestContext(request)
+        )
