@@ -9,7 +9,8 @@ from django.utils.encoding import smart_str
 from django.http import HttpResponse
 import xlwt
 from xlrd import *
-
+import os
+from fl.settings import up_path
 from django.template import Context
 from django.template import loader
 from django.template import RequestContext
@@ -115,16 +116,16 @@ def export_xls(request):
     return response
 
 def read_xls(request):
-    xls_path = '/static/xls/'
-    wb = open_workbook('example.xls')
+    xls_path = str(up_path+'/static/xls/')
+    wb = open_workbook(str(xls_path+'example.xls'))
     for s in wb.sheets():
         print 'Sheet:', s.name
+        content = []
         for row in xrange(s.nrows):
-            content = []
+            row_con = []
             for col in xrange(s.ncols):
-                content.append(s.cell(row, col).value)
-            print ','.join(content)
-        print
+                row_con.append(s.cell(row, col).value)
+            content.append(row_con)
     return render_to_response('files/read.html',
         locals(),
         context_instance=RequestContext(request)
