@@ -1,8 +1,13 @@
+#!usr/evn python
+#-*-coding:utf8-*-
 from reportlab.pdfgen import canvas
 from io import BytesIO
 from reportlab.lib.units import cm
 import csv
+import re
+from django.utils.encoding import smart_str
 from django.http import HttpResponse
+import xlwt
 
 from django.template import Context
 from django.template import loader
@@ -78,4 +83,36 @@ def export_csv(request):
     writer.writerow(['name studentID'])
     writer.writerow(['yinshiyong 20101472'])
 
+    return response
+
+
+def export_xls(request):
+    font0 = xlwt.Font()
+    font0.name = 'Times New Roman'
+    font0.colour_index = 2
+    font0.bold = True
+
+    style0 = xlwt.XFStyle()
+    style0.font = font0
+
+    style1 = xlwt.XFStyle()
+    style1.num_format_str = 'D-MMM-YY'
+
+    wb = xlwt.Workbook()
+    ws = wb.add_sheet('A Test Sheet')
+
+    ws.write(0, 0, 'Test', style0)
+    ws.write(1, 0, datetime.now(), style1)
+    ws.write(2, 0, 1)
+    ws.write(2, 1, 1)
+    ws.write(2, 2, xlwt.Formula("A3+B3"))
+    fname = 'ex.xls'
+    agent=request.META.get('HTTP_USER_AGENT') 
+    if agent and re.search('MSIE',agent):
+        response =HttpResponse(mimetype="application/vnd.ms-excel") #解决ie不能下载的问题
+        response['Content-Disposition'] ='attachment; filename=%s' % urlquote(fname) #解决文件名乱码/不显示的问题
+    else:
+        response =HttpResponse(mimetype="application/ms-excel")#解决ie不能下载的问题
+        response['Content-Disposition'] ='attachment; filename=%s' % smart_str(fname) #解决文件名乱码/不显示的问题
+    wb.save(response)#this is the key
     return response

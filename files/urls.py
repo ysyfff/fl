@@ -17,4 +17,5 @@ urlpatterns = patterns('',
     url(r'^home/$', views.home),
     url(r'^pdf/$', views.export_pdf),
     url(r'^csv/$', views.export_csv),
+    url(r'^xls/$', views.export_xls),
 )
