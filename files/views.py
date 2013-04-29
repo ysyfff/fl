@@ -47,13 +47,12 @@ def export_fl(request):
 def import_img(request):
     file_name = datetime.now().strftime('%Y%m%d%H%M%S')
     if request.method=="POST":
-        return HttpResponseRedirect('/')
         photo = request.FILES['file']
         p_name, format = photo.name.split('.')
         photo.name=file_name+'.'+format
         car = Car(name=photo.name, photo=photo)
         car.save()
-        
+        return HttpResponseRedirect('/files/import/')
     else:
         form = UploadFileForm()
 
