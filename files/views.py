@@ -1,6 +1,7 @@
 from reportlab.pdfgen import canvas
 from io import BytesIO
-from reportlab.lib.units import cm 
+from reportlab.lib.units import cm
+import csv
 from django.http import HttpResponse
 
 from django.template import Context
@@ -66,4 +67,15 @@ def export_pdf(request):
     print pdf,'nooooooooooooooooo'
     buffer.close()
     response.write(pdf)
+    return response
+
+
+def export_csv(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="CSV.csv"'
+
+    writer = csv.writer(response)
+    writer.writerow(['name studentID'])
+    writer.writerow(['yinshiyong 20101472'])
+
     return response

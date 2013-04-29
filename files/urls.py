@@ -16,4 +16,5 @@ urlpatterns = patterns('',
     # url(r'^admin/', include(admin.site.urls)),
     url(r'^home/$', views.home),
     url(r'^pdf/$', views.export_pdf),
+    url(r'^csv/$', views.export_csv),
 )
