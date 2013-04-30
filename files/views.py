@@ -145,3 +145,17 @@ def read_xls(request):
         locals(),
         context_instance=RequestContext(request)
         )
+
+def export_big_xls(request):
+    def readFile(fn, buf_size=1024):
+        f = open(fn, 'rb')
+        while True:
+            c = f.read(buf_size)
+            if c:
+                yield c
+            else:
+                break
+            f.close()
+    file_name = ""
+    response = StreamingHttpResponse(readFile(file_name))
+    return response

@@ -1,0 +1,105 @@
+from django.http import StreamingHttpResponse
+
+print '-'*80
+print 'dir()'
+print dir(StreamingHttpResponse)
+print '-'*80
+print '.__class__'
+print StreamingHttpResponse.__class__
+print '-'*80
+print '.__doc__'
+print StreamingHttpResponse.__doc__
+print '-'*80
+print '.__doc__'
+print StreamingHttpResponse.__doc__
+
+print '-'*80
+print 'dir()'
+print dir(StreamingHttpResponse)
+print '-'*80
+print '.__class__'
+print StreamingHttpResponse.__class__
+print '-'*80
+print '.__doc__'
+print StreamingHttpResponse.__doc__
+print '-'*80
+print '.__doc__'
+print StreamingHttpResponse.__doc__
+
+print '-'*80
+print 'dir()'
+print dir(StreamingHttpResponse)
+print '-'*80
+print '.__class__'
+print StreamingHttpResponse.__class__
+print '-'*80
+print '.__doc__'
+print StreamingHttpResponse.__doc__
+print '-'*80
+print '.__doc__'
+print StreamingHttpResponse.__doc__
+
+print '-'*80
+print 'dir()'
+print dir(StreamingHttpResponse)
+print '-'*80
+print '.__class__'
+print StreamingHttpResponse.__class__
+print '-'*80
+print '.__doc__'
+print StreamingHttpResponse.__doc__
+print '-'*80
+print '.__doc__'
+print StreamingHttpResponse.__doc__
+
+print '-'*80
+print 'dir()'
+print dir(StreamingHttpResponse)
+print '-'*80
+print '.__class__'
+print StreamingHttpResponse.__class__
+print '-'*80
+print '.__doc__'
+print StreamingHttpResponse.__doc__
+print '-'*80
+print '.__doc__'
+print StreamingHttpResponse.__doc__
+
+print '-'*80
+print 'dir()'
+print dir(StreamingHttpResponse)
+print '-'*80
+print '.__class__'
+print StreamingHttpResponse.__class__
+print '-'*80
+print '.__doc__'
+print StreamingHttpResponse.__doc__
+print '-'*80
+print '.__doc__'
+print StreamingHttpResponse.__doc__
+
+print '-'*80
+print 'dir()'
+print dir(StreamingHttpResponse)
+print '-'*80
+print '.__class__'
+print StreamingHttpResponse.__class__
+print '-'*80
+print '.__doc__'
+print StreamingHttpResponse.__doc__
+print '-'*80
+print '.__doc__'
+print StreamingHttpResponse.__doc__
+
+print '-'*80
+print 'dir()'
+print dir(StreamingHttpResponse)
+print '-'*80
+print '.__class__'
+print StreamingHttpResponse.__class__
+print '-'*80
+print '.__doc__'
+print StreamingHttpResponse.__doc__
+print '-'*80
+print '.__doc__'
+print StreamingHttpResponse.__doc__
