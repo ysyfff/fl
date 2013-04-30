@@ -6,3 +6,6 @@ class Car(models.Model):
 
 class BackCar(models.Model):
     picture = models.ImageField(upload_to='headimg')
+
+class LargeFile(models.Model):
+    lfile = models.FileField(upload_to='media')

@@ -15,6 +15,7 @@ urlpatterns = patterns('',
     # Uncomment the next line to enable the admin:
     # url(r'^admin/', include(admin.site.urls)),
     url(r'^import/$', views.import_img),
+    url(r'^importl/$', views.import_lfile),
     url(r'^export/$', views.export_fl),
     url(r'^pdf/$', views.export_pdf),
     url(r'^csv/$', views.export_csv),

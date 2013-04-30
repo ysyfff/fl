@@ -29,7 +29,7 @@ import time
 from django.utils import timezone
 from datetime import datetime
 from files.forms import UploadFileForm
-from files.models import Car
+from files.models import Car, LargeFile
 
 ROOT_PATH = '/static/img/headimg/'
 
@@ -69,6 +69,19 @@ def import_img(request):
         context_instance=RequestContext(request)
         )
 
+def import_lfile(request):
+    if request.method=='POST':
+        lfile = request.FILES['lfile']
+        print lfile.name
+        lf = LargeFile(lfile=lfile)
+        lf.save()
+        return HttpResponseRedirect('/files/import/')
+    else:
+        form = UploadLFileForm()
+    return render_to_response('files/import.html',
+        locals(),
+        context_instance=RequestContext(request)
+        )
 
 def export_pdf(request):
     response = HttpResponse(content_type='application/pdf')
