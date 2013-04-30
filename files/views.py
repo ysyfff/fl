@@ -11,6 +11,7 @@ import xlwt
 from xlrd import *
 import os
 from fl.settings import up_path
+from django.http import StreamingHttpResponse
 from django.template import Context
 from django.template import loader
 from django.template import RequestContext
@@ -130,9 +131,9 @@ def export_xls(request):
     wb.save(response)#this is the key
     return response
 
+ab_path = str(up_path+'/static/xls/')
 def read_xls(request):
-    xls_path = str(up_path+'/static/xls/')
-    wb = open_workbook(str(xls_path+'example.xls'))
+    wb = open_workbook(str(ab_path+'example.xls'))
     for s in wb.sheets():
         print 'Sheet:', s.name
         content = []
@@ -155,7 +156,14 @@ def export_big_xls(request):
                 yield c
             else:
                 break
-            f.close()
-    file_name = ""
+        f.close()
+    file_name = str(ab_path+'example.xls')
     response = StreamingHttpResponse(readFile(file_name))
+
+    fname = 'bxls.xls'
+    agent=request.META.get('HTTP_USER_AGENT')
+    if agent and re.search('MSIE',agent):
+        response['Content-Disposition'] ='attachment; filename=%s' % urlquote(fname)
+    else:
+        response['Content-Disposition'] ='attachment; filename=%s' % smart_str(fname)
     return response
