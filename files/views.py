@@ -31,7 +31,7 @@ from datetime import datetime
 from files.forms import UploadFileForm
 from files.models import Car, LargeFile
 
-ROOT_PATH = '/static/img/headimg/'
+ROOT_PATH = '/media/img/headimg/'
 
 def home(request):
     return render_to_response('files/home.html',
@@ -144,7 +144,7 @@ def export_xls(request):
     wb.save(response)#this is the key
     return response
 
-ab_path = str(up_path+'/static/xls/')
+ab_path = str(up_path+'/media/xls/')
 def read_xls(request):
     wb = open_workbook(str(ab_path+'example.xls'))
     for s in wb.sheets():
