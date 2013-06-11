@@ -33,9 +33,12 @@ from datetime import datetime
 class MyModelAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
         obj.picture = request.FILES['picture']
+        print type(obj.picture)
+        print obj
+        print obj.picture
         p_name, format = obj.picture.name.split('.')
         file_name = datetime.now().strftime('%Y%m%d%H%M%S')
-        obj.picture.name=file_name+'.'+format
+        obj.picture.name='wocao/'+file_name+'.'+format
         obj.save()
 
 admin.site.register(Car)

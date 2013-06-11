@@ -11,7 +11,7 @@ import xlwt
 from xlrd import *
 import os
 from fl.settings import up_path
-from django.http import StreamingHttpResponse
+
 from django.template import Context
 from django.template import loader
 from django.template import RequestContext
